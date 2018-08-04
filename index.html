@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>Agung Atidhira First Web App - Fast Quiz</title>
+    <link type='text/css' rel='stylesheet' href='style.css'/>
+  </head>
+  <body>
+    <nav>
+      <div id="banner">
+        <h1>Password Generator</h1>
+      </div>
+    </nav>
+    
+     <div id="welcome">
+        <h3>Welcome to my first web application</h3>
+      </div>
+    
+    <div id="content">
+      <div class="opening">
+        <p>Please insert the name of the website which you want to create the Password below !</p>
+      </div>
+      <div class="input">
+          <form name="myform" method="post" action="">
+              <input type="hidden" name="length" value="15">
+              <table width="100%" border="0">
+                  <tr>
+                      <td class="Row_Name" id="webName">Name of Website:</td>
+                      <td>
+                          <input name="row_name" type="text" size="40">&nbsp;
+                          <input type="button" class="button" value="Generate" onClick="generate();" tabindex="2">
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="Row_Name" id="newPass">New Password:</td>
+                      <td>
+                          <input name="row_password" type="text" size="40">&nbsp;
+                      </td>
+                  </tr>
+              </table>
+          </form>
+      </div>
+    </div>
+    
+
+
+    <!--javacript--> 
+    <script src="script.js"></script>
+  </body>
+
+  <footer>
+    <div id="foot">
+      <p>Copyright &copy; 2018</p>
+      <p2>Photo by Markus Spiske on Unsplash</p2>
+    </div>
+  </footer>
+</html>

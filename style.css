@@ -1,0 +1,121 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Open Sans, sans-serif;
+}
+
+body {
+    width:100%; 
+    background-image: url(image/connectwork.jpg);
+    background-size: cover;
+}
+
+nav {
+    background-color: rgb(1, 34, 1);
+    background-position-y: center;
+}
+#banner {
+    color: whitesmoke;
+    text-align: left;
+    height: 10%;
+    width: 100%;
+}
+
+nav #banner h1 {
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    size: 200%;
+}
+
+#welcome {
+    background-color: rgba(31, 30, 30, 0.377);
+    color: rgb(243, 242, 232);
+    text-align: center;
+    padding-bottom: 10px;
+}
+#welcome h3 {
+    padding-top: 25px;
+    animation: slide-left 3s;
+}
+@keyframes slide-left {
+    from {
+      margin-left: 0%;
+      width: 250%; 
+    }
+  
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
+  }
+
+#content {
+    height: 100%;
+    width: 80%;
+    background-color: rgba(10, 10, 10, 0.575);
+    margin: auto;
+}
+
+#content p {
+    padding-top: 20px;
+    text-align: center;
+    color: white;
+    margin: auto;
+
+}
+
+.opening {
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.Row_Name {
+    color: white;
+}
+
+
+#start {
+    background-color: rgb(78, 76, 175);
+    align-items: center;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+#start:hover{
+    background-color: rgb(35, 34, 78);
+}
+
+
+#quiz {
+    background-color: rgb(172, 172, 164);
+    padding: 50px, 0;
+}
+
+#submit {
+    background-color: rgba(40, 185, 106, 0.856);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+#submit:hover {
+    color: rgb(226, 241, 19);
+    background-color: rgba(26, 110, 64, 0.856);
+}
+
+footer {
+    color: beige;
+    background-color: rgba(10, 10, 10, 0.575);
+    padding: 25px;
+}
