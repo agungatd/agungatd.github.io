@@ -53,3 +53,61 @@ contactForm.addEventListener('submit', (e) => {
     alert('Thank you for your message! I will get back to you soon.');
     contactForm.reset();
 });
+
+// // Smooth scroll
+// const scroll = new SmoothScroll('a[href*="#"]', {
+//     speed: 800
+// });
+
+// Dark mode toggle
+window.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('theme-slider');
+    const icon = themeToggle.querySelector('i');
+    console.log(icon);
+    
+    // Check for saved user preference, if any
+    const currentTheme = localStorage.getItem('theme');
+    
+    // If the current theme in localStorage is "dark"...
+    if (currentTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        icon.classList.replace('fa-moon', 'fa-sun');
+    }
+    
+    // Listen for a click on the theme toggle
+    themeToggle.addEventListener('click', function() {
+
+        // Toggle between light and dark
+        if (document.body.getAttribute('data-theme') !== 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            icon.classList.replace('theme-icon.fas.fa-moon', 'theme-icon.fas.fa-sun');
+        } else {
+            document.body.removeAttribute('data-theme');
+            document.body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            icon.classList.replace('theme-icon.fas.fa-sun', 'theme-icon.fas.fa-moon');
+        }
+    });
+    
+    // Optional: Check for system preference
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    if (prefersDarkScheme.matches && !currentTheme) {
+        document.body.setAttribute('data-theme', 'dark');
+        icon.classList.replace('fa-moon', 'fa-sun');
+    }
+    
+    // Listen for system theme changes
+    prefersDarkScheme.addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+            if (e.matches) {
+                document.body.setAttribute('data-theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                document.body.removeAttribute('data-theme');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
+        }
+    });
+});

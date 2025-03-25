@@ -5,6 +5,23 @@
     --dark: #1e293b;
     --light: #f8fafc;
     --gray: #94a3b8;
+    --light-gray: #e2e8f0;
+    --dark-gray: #374151;
+
+    /* Add these for dark mode */
+    --bg-color: var(--light);
+    --text-color: var(--dark);
+    --invert-bg-color: var(--dark);
+    --invert-text-color: var(--light);
+    --card-bg: white;
+}
+
+[data-theme="dark"] {
+    --bg-color: var(--dark);
+    --text-color: var(--light);
+    --invert-bg-color: var(--light);
+    --invert-text-color: var(--dark);
+    --card-bg: #334155;
 }
 
 * {
@@ -15,8 +32,9 @@
 }
 
 body {
-    background-color: var(--light);
-    color: var(--dark);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
 }
 
@@ -80,6 +98,89 @@ nav.hidden {
     width: 100%;
 }
 
+/* Theme toggle button styles */
+.theme-switch-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: var(--primary);
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    background-color: var(--bg-color);
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+    border-radius: 50%;
+}
+
+.slider i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 14px;
+}
+
+.slider .fa-sun {
+    left: 8px;
+    opacity: 1;
+}
+
+.slider .fa-moon {
+    right: 8px;
+    opacity: 1;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-dark);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+[data-theme="dark"] .slider .fa-sun {
+    opacity: 0;
+}
+
+[data-theme="dark"] .slider .fa-moon {
+    opacity: 1;
+}
+
 /* Hero Section */
 #hero {
     height: 100vh;
@@ -109,7 +210,7 @@ nav.hidden {
 
 .hero-content p {
     font-size: 1.2rem;
-    color: var(--gray);
+    color: var(--text-color);
     margin-bottom: 2rem;
     line-height: 1.6;
     opacity: 0;
@@ -164,7 +265,7 @@ nav.hidden {
     background-color: var(--primary);
     opacity: 0.1;
     z-index: 1;
-    animation: float 6s ease-in-out infinite;
+    animation: float 3s ease-in-out infinite;
 }
 
 .particles {
@@ -176,10 +277,13 @@ nav.hidden {
     z-index: 0;
 }
 
+/* Testing */
+
+
 /* About Section */
 #about {
     padding: 8rem 10%;
-    background-color: white;
+    background-color: var(--bg-color);
 }
 
 .section-title {
@@ -214,7 +318,7 @@ nav.hidden {
 .about-text p {
     margin-bottom: 1.5rem;
     line-height: 1.8;
-    color: var(--gray);
+    color: var(--text-color);
 }
 
 .skills-list {
@@ -226,7 +330,7 @@ nav.hidden {
 
 .skill-item {
     padding: 0.5rem 1.2rem;
-    background-color: var(--light);
+    background-color: var(--light-gray);
     border-radius: 50px;
     font-size: 0.9rem;
     font-weight: 600;
@@ -261,7 +365,7 @@ nav.hidden {
 /* Projects Section */
 #projects {
     padding: 8rem 10%;
-    background-color: var(--light);
+    background-color: var(--bg-color);
 }
 
 .projects-grid {
@@ -272,7 +376,7 @@ nav.hidden {
 }
 
 .project-card {
-    background-color: white;
+    background-color: var(--card-bg);
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -314,11 +418,11 @@ nav.hidden {
 .project-info h3 {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
-    color: var(--dark);
+    color: var(--text-color);
 }
 
 .project-info p {
-    color: var(--gray);
+    color: var(--text-color);
     margin-bottom: 1rem;
     line-height: 1.6;
 }
@@ -350,7 +454,7 @@ nav.hidden {
 /* Technologies Section */
 #technologies {
     padding: 8rem 10%;
-    background-color: white;
+    background-color: var(--bg-color);
     overflow: hidden;
 }
 
@@ -376,7 +480,7 @@ nav.hidden {
     padding: 1.5rem;
     background-color: var(--light);
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
 }
 
@@ -398,7 +502,7 @@ nav.hidden {
 /* Contact Section */
 #contact {
     padding: 8rem 10%;
-    background-color: var(--light);
+    background-color: var(--bg-color);
 }
 
 .contact-container {
@@ -414,11 +518,11 @@ nav.hidden {
 .contact-info h3 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: var(--dark);
+    color: var(--text-color);
 }
 
 .contact-info p {
-    color: var(--gray);
+    color: var(--text-color);
     margin-bottom: 2rem;
     line-height: 1.8;
 }
@@ -434,7 +538,7 @@ nav.hidden {
     justify-content: center;
     width: 50px;
     height: 50px;
-    background-color: white;
+    background-color: var(--light-gray);
     border-radius: 50%;
     color: var(--dark);
     font-size: 1.5rem;
@@ -450,10 +554,10 @@ nav.hidden {
 
 .contact-form {
     flex: 1;
-    background-color: white;
+    background-color: var(--bg-color);
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
     transform: translateX(50px);
     opacity: 0;
     transition: all 1s ease;
@@ -472,14 +576,14 @@ nav.hidden {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--text-color);
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.8rem 1rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #abb0b8;
     border-radius: 5px;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -518,8 +622,9 @@ nav.hidden {
 footer {
     text-align: center;
     padding: 2rem;
-    background-color: var(--dark);
-    color: white;
+    background-color: var(--invert-bg-color);
+    color: var(--invert-text-color);
+    font-size: 0.9rem;
 }
 
 /* Animations */
