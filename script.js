@@ -1,22 +1,55 @@
-// Fade-in on Scroll
-const sections = document.querySelectorAll('.section-fade-in');
+// Navbar hide/show on scroll
+let lastScroll = 0;
+const navbar = document.getElementById('navbar');
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target); // Stop observing once visible
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll <= 0) {
+        navbar.classList.remove('hidden');
+        return;
+    }
+    
+    if (currentScroll > lastScroll && !navbar.classList.contains('hidden')) {
+        // Scroll down
+        navbar.classList.add('hidden');
+    } else if (currentScroll < lastScroll && navbar.classList.contains('hidden')) {
+        // Scroll up
+        navbar.classList.remove('hidden');
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// Animate elements when they come into view
+const animateOnScroll = () => {
+    const elements = document.querySelectorAll('.about-image, .project-card, .contact-form');
+    
+    elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if (elementPosition < screenPosition) {
+            element.classList.add('animate');
         }
     });
-}, {
-    rootMargin: '-100px 0px -100px 0px' // Adjust as needed
+};
+
+window.addEventListener('scroll', animateOnScroll);
+window.addEventListener('load', animateOnScroll);
+
+// Initialize animations for skills
+const skillItems = document.querySelectorAll('.skill-item');
+skillItems.forEach((item, index) => {
+    item.style.animationDelay = `${index * 0.1}s`;
 });
 
-sections.forEach(section => {
-    observer.observe(section);
-});
-
-// Hero Animation on Load
-window.addEventListener('load', () => {
-  document.getElementById('hero').classList.add('is-visible');
+// Form submission
+const contactForm = document.getElementById('contactForm');
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Here you would typically send the form data to a server
+    alert('Thank you for your message! I will get back to you soon.');
+    contactForm.reset();
 });

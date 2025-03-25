@@ -3,116 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agung Atidhira - Senior Data Engineer</title>
+    <title>Agung Atidhira | Senior Data Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    <header id="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Agung Atidhira</h1>
-            <p class="hero-subtitle">Senior Data Engineer | Architecting Scalable Data Solutions</p>
-            <!-- <img src="assets/placeholder-profile.jpg" alt="Agung Atidhira" class="profile-pic"> -->
-            <img src="https://placehold.co/600x400" alt="Agung Atidhira" class="profile-pic">
-            <a href="#contact" class="cta-button">Get in Touch</a>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">Agung Atidhira</a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#technologies">Technologies</a>
+            <a href="#contact">Contact</a>
         </div>
-    </header>
-
-    <section id="about" class="section-fade-in">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>
-                I'm a Senior Data Engineer with over [Number] years of experience designing, building, and maintaining robust data pipelines and infrastructure.  My expertise lies in [List 2-3 key areas, e.g., cloud-based data warehousing, real-time data streaming, ETL processes]. I'm passionate about leveraging data to drive business insights and solve complex problems.  I've worked with technologies like [List key technologies: e.g., Spark, Kafka, AWS, GCP, Snowflake, SQL, Python, Airflow].
-            </p>
-           <div class="skills">
-              <h3>Key Technologies:</h3>
-                <ul class="skills-list">
-                    <li><span class="skill-badge">Spark</span></li>
-                    <li><span class="skill-badge">Kafka</span></li>
-                    <li><span class="skill-badge">AWS (S3, EMR, Glue)</span></li>
-                    <li><span class="skill-badge">GCP (BigQuery, Dataflow)</span></li>
-                    <li><span class="skill-badge">Snowflake</span></li>
-                    <li><span class="skill-badge">SQL</span></li>
-                    <li><span class="skill-badge">Python</span></li>
-                    <li><span class="skill-badge">Airflow</span></li>
-                    </ul>
-           </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="particles" id="particles-js"></div>
+        <div class="hero-content">
+            <h1>Agung Atidhira <span>Senior Data Engineer</span></h1>
+            <p>Transforming raw data into actionable insights with scalable pipelines and innovative solutions. Passionate about building robust data infrastructure that drives business decisions.</p>
+            <a href="#contact" class="cta-button">Get In Touch</a>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>With over 8 years of experience in data engineering, I specialize in designing and implementing high-performance data pipelines that handle petabytes of data daily. My expertise spans across cloud platforms, distributed systems, and real-time data processing.</p>
+                <p>I believe in clean, maintainable code and architectures that scale. When I'm not optimizing SQL queries or tuning Spark jobs, you can find me contributing to open-source projects or mentoring junior engineers.</p>
+                
+                <div class="skills-list">
+                    <div class="skill-item" style="animation-delay: 0.1s;">Python</div>
+                    <div class="skill-item" style="animation-delay: 0.2s;">SQL</div>
+                    <div class="skill-item" style="animation-delay: 0.3s;">Apache Spark</div>
+                    <div class="skill-item" style="animation-delay: 0.4s;">AWS</div>
+                    <div class="skill-item" style="animation-delay: 0.5s;">Airflow</div>
+                    <div class="skill-item" style="animation-delay: 0.6s;">Kafka</div>
+                    <div class="skill-item" style="animation-delay: 0.7s;">Snowflake</div>
+                    <div class="skill-item" style="animation-delay: 0.8s;">Docker</div>
+                    <div class="skill-item" style="animation-delay: 0.9s;">Kubernetes</div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Agung Atidhira working on laptop">
+            </div>
         </div>
     </section>
-
-    <section id="projects" class="section-fade-in">
-        <div class="container">
-            <h2>Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <!-- <img src="assets/placeholder-project.jpg" alt="Project 1" class="project-image"> -->
-                    <img src="https://placehold.co/600x400" alt="Project 1" class="project-image">
-                    <div class="project-info">
-                        <h3>Project Title 1</h3>
-                        <p>Brief description: Built a scalable data pipeline for real-time analytics using Kafka and Spark.</p>
-                        <div class="project-links">
-                          <a href="#" target="_blank" rel="noopener noreferrer">Live Demo</a>
-                          <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
+    
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Real-time Analytics Dashboard">
+                </div>
+                <div class="project-info">
+                    <h3>Real-time Analytics Platform</h3>
+                    <p>A scalable platform processing 1M+ events per second using Kafka, Flink, and Druid with sub-second latency for analytics queries.</p>
+                    <div class="project-links">
+                        <a href="#"><i class="fab fa-github"></i> Code</a>
+                        <a href="#"><i class="fas fa-external-link-alt"></i> Live</a>
                     </div>
                 </div>
-
-                <div class="project-card">
-                    <!-- <img src="assets/placeholder-project.jpg" alt="Project 2" class="project-image"> -->
-                    <img src="https://placehold.co/600x400" alt="Project 2" class="project-image">
-                    <div class="project-info">
-                        <h3>Project Title 2</h3>
-                        <p>Brief description: Designed and implemented a data warehouse on Snowflake, optimizing for performance and cost.</p>
-                        <div class="project-links">
-                            <a href="#" target="_blank" rel="noopener noreferrer">Live Demo</a>
-                            <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
-                          </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" alt="Data Warehouse Migration">
+                </div>
+                <div class="project-info">
+                    <h3>Data Warehouse Migration</h3>
+                    <p>Migrated 50TB+ data warehouse from on-prem Hadoop to Snowflake, reducing query times by 85% and cutting costs by 40%.</p>
+                    <div class="project-links">
+                        <a href="#"><i class="fab fa-github"></i> Code</a>
                     </div>
                 </div>
-
-                <div class="project-card">
-                   <!-- <img src="assets/placeholder-project.jpg" alt="Project 3" class="project-image"> -->
-                   <img src="https://placehold.co/600x400" alt="Project 3" class="project-image">
-                    <div class="project-info">
-                      <h3>Project Title 3</h3>
-                      <p>Brief description: Developed an ETL process using Python and Airflow to automate data ingestion and transformation.</p>
-                        <div class="project-links">
-                            <a href="#" target="_blank" rel="noopener noreferrer">Live Demo</a>
-                            <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
-                          </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="ML Feature Store">
+                </div>
+                <div class="project-info">
+                    <h3>ML Feature Store</h3>
+                    <p>Centralized feature repository serving 100+ ML models with versioning, monitoring, and point-in-time correctness.</p>
+                    <div class="project-links">
+                        <a href="#"><i class="fab fa-github"></i> Code</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-      <section id="contact" class="section-fade-in">
-        <div class="container">
-            <h2>Contact</h2>
-            <form id="contact-form" action="#" method="post">  <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
+    
+    <!-- Technologies Section -->
+    <section id="technologies">
+        <h2 class="section-title">Technologies I Work With</h2>
+        <div class="tech-container">
+            <div class="tech-scroll">
+                <div class="tech-item">
+                    <i class="fab fa-python tech-icon"></i>
+                    <span class="tech-name">Python</span>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                <div class="tech-item">
+                    <i class="fas fa-database tech-icon"></i>
+                    <span class="tech-name">SQL</span>
                 </div>
-                <div class="form-group">
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
+                <div class="tech-item">
+                    <i class="fas fa-bolt tech-icon"></i>
+                    <span class="tech-name">Apache Spark</span>
                 </div>
-                <button type="submit" class="cta-button">Send Message</button>
-            </form>
-            <div id="form-message" class="form-message"></div>
-
-            <div class="social-links">
-                <a href="#" target="_blank" rel="noopener noreferrer"><img class="social-icon" src="placeholder-linkedin.png" alt="LinkedIn"></a>  <a href="#" target="_blank" rel="noopener noreferrer"><img class="social-icon" src="placeholder-github.png" alt="GitHub"></a>    </div>
+                <div class="tech-item">
+                    <i class="fab fa-aws tech-icon"></i>
+                    <span class="tech-name">AWS</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-wind tech-icon"></i>
+                    <span class="tech-name">Airflow</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-stream tech-icon"></i>
+                    <span class="tech-name">Kafka</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-snowflake tech-icon"></i>
+                    <span class="tech-name">Snowflake</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-docker tech-icon"></i>
+                    <span class="tech-name">Docker</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-ship tech-icon"></i>
+                    <span class="tech-name">Kubernetes</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-google tech-icon"></i>
+                    <span class="tech-name">BigQuery</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-table tech-icon"></i>
+                    <span class="tech-name">dbt</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-code-branch tech-icon"></i>
+                    <span class="tech-name">Git</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-linux tech-icon"></i>
+                    <span class="tech-name">Linux</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-server tech-icon"></i>
+                    <span class="tech-name">Terraform</span>
+                </div>
+            </div>
         </div>
     </section>
-
+    
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Let's talk about your data needs</h3>
+                <p>Whether you're looking to build a new data platform, optimize existing pipelines, or discuss the latest in data engineering, I'd love to hear from you.</p>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2023 Agung Atidhira. All rights reserved.</p>
+        <p>&copy; 2025 Agung Atidhira. All rights reserved.</p>
     </footer>
-
+    
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </body>
 </html>
