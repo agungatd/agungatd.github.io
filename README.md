@@ -1,3 +1,3 @@
 # My Personal Portfolio Website
 
-!["./assets/my-portfolio-website.png"]("my-portfolio-website")
+![my-portfolio-website](https://raw.githubusercontent.com/agungatd/agungatd.github.io/refs/heads/main/assets/my-portfolio-website.png)
