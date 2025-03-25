@@ -286,7 +286,7 @@ input:checked + .slider:before {
     background-color: var(--bg-color);
 }
 
-.section-title {
+.section-title, .section-title-tech {
     font-size: 2.5rem;
     margin-bottom: 3rem;
     text-align: center;
@@ -299,7 +299,18 @@ input:checked + .slider:before {
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
+    width: 200px;
+    height: 4px;
+    background-color: var(--primary);
+    border-radius: 2px;
+}
+.section-title-tech::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 430px;
     height: 4px;
     background-color: var(--primary);
     border-radius: 2px;
