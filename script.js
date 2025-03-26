@@ -93,7 +93,6 @@ function createProjectCard(title, description, image, githubUrl, liveUrl) {
     
     card.appendChild(cardImgDiv);
     card.appendChild(cardBody);
-    console.log(card);
     return card;
 }
 
@@ -194,7 +193,6 @@ skillItems.forEach((item, index) => {
 window.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('theme-slider');
     const icon = themeToggle.querySelector('i');
-    console.log(icon);
     
     // Check for saved user preference, if any
     const currentTheme = localStorage.getItem('theme');
@@ -243,3 +241,11 @@ window.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// ===================================== Set dynamic values
+// Calculate years of experience
+const currentYear = new Date().getFullYear();
+const startYear = 2019;
+const yearsExperience = currentYear - startYear;
+
+// Update the HTML
+document.getElementById('years-experience').textContent = yearsExperience;
