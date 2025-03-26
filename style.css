@@ -474,11 +474,18 @@ input:checked + .slider:before {
     position: relative;
 }
 
-.tech-scroll {
+.tech-scroll-top {
     display: flex;
     gap: 2rem;
     padding: 2rem 0;
-    animation: scroll 30s linear infinite;
+    animation: scroll 20s linear infinite;
+    width: calc(250px * 14);
+}
+.tech-scroll-bottom {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 0;
+    animation: scroll 22s linear reverse infinite;
     width: calc(250px * 14);
 }
 
