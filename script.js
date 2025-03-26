@@ -44,7 +44,7 @@ const projects = [
     {"title": "Real-time Analytics Platform", "description": "A scalable platform processing hundreds of events per second using Kafka, Flink, and Pinot with sub-second latency for analytics queries.", "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80", "githubUrl": "#", "liveUrl": "#"},
     {"title": "E-Commerce Data Lakehouse", "description": "A comprehensive data engineering project built on the medallion architecture, utilizing Iceberg for a scalable and reliable data lakehouse.", "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "githubUrl": "https://github.com/agungatd/End-to-end-E-commerce-Data-Lakehouse", "liveUrl": "#"},
     {"title": "Bird Species Image Classification", "description": "A deep learning portfolio project using a convolutional neural network.", "image": "https://images.unsplash.com/photo-1595495529320-dd1f14f6b907?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "githubUrl": "https://github.com/agungatd/Bird-Species-Image-Classification", "liveUrl": "#"},
-    {"title": "My Portfolio Website", "description": "A website to showcase my project portfolio.", "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "githubUrl": "https://github.com/agungatd/my-portfolio-website", "liveUrl": "#"},
+    {"title": "My Portfolio Website", "description": "A website to showcase my project portfolio.", "image": "assets/my-portfolio-website.png", "githubUrl": "https://github.com/agungatd/my-portfolio-website", "liveUrl": "#"},
     // {"title": "x", "description": "x", "image": "#", "githubUrl": "#", "liveUrl": "#"},
 ];
 
@@ -249,3 +249,34 @@ const yearsExperience = currentYear - startYear;
 
 // Update the HTML
 document.getElementById('years-experience').textContent = yearsExperience;
+
+// ===================================== Advance Animation with GSAP
+// # about me image
+const container = document.querySelector('.about-image');
+const defaultImg = container.querySelector('.default-about-img');
+const hoverImg = container.querySelector('.hover-about-img');
+
+// Initial state
+gsap.set(hoverImg, { opacity: 0 });
+
+container.addEventListener('mouseenter', () => {
+  gsap.to(defaultImg, { opacity: 0, duration: 0.5, ease: "power2.inOut" });
+//   gsap.fromTo(hoverImg, 
+//     { opacity: 0, y: 20 },
+//     { opacity: 1, y: 0, duration: 0.7, ease: "back.out(1.7)" }
+//   );
+    gsap.fromTo(hoverImg, 
+        { opacity: 0, rotationY: 90 },
+        { 
+        opacity: 1, 
+        rotationY: 0, 
+        duration: 0.6, 
+        ease: "back.out(1.7)" 
+        }
+    );
+});
+
+container.addEventListener('mouseleave', () => {
+  gsap.to(hoverImg, { opacity: 0, duration: 0.5, ease: "power2.inOut" });
+  gsap.to(defaultImg, { opacity: 1, duration: 0.5, ease: "power2.inOut" });
+});
