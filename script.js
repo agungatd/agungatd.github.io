@@ -110,21 +110,37 @@ window.addEventListener('DOMContentLoaded', populateProjectCards);
 
 // ===================================== Populate tech items
 // Sample JSON data (could come from an API or local file)
-const techData = [
+const techDataTop = [
     {"icon_class": "fab fa-python tech-icon", "tech_name": "Python"},
     {"icon_class": "fas fa-database tech-icon", "tech_name": "SQL"},
-    {"icon_class": "fas fa-bolt tech-icon", "tech_name": "Apache Spark"},
-    {"icon_class": "fas fa-aws tech-icon", "tech_name": "AWS"},
-    {"icon_class": "fas fa-wind tech-icon", "tech_name": "Apache Airflow"},
-    {"icon_class": "fas fa-stream tech-icon", "tech_name": "Apache Kafka"},
-    {"icon_class": "fas fa-docker tech-icon", "tech_name": "Docker"},
-    {"icon_class": "fas fa-icicles tech-icon", "tech_name": "Apache Iceberg"},
-    {"icon_class": "fas fa-database tech-icon", "tech_name": "Clickhouse"},
-    {"icon_class": "fas fa-table tech-icon", "tech_name": "dbt"},
-    {"icon_class": "fas fa-code-branch tech-icon", "tech_name": "Git"},
     {"icon_class": "fab fa-linux tech-icon", "tech_name": "Linux"},
-    {"icon_class": "fas fa-server tech-icon", "tech_name": "Databricks"},
-    // Add more items as needed
+    {"icon_class": "svg-icon i-spark tech-icon", "tech_name": "Apache Spark"},
+    {"icon_class": "fab fa-aws tech-icon", "tech_name": "AWS"},
+    {"icon_class": "svg-icon i-airflow tech-icon", "tech_name": "Apache Airflow"},
+    {"icon_class": "svg-icon i-kafka tech-icon", "tech_name": "Apache Kafka"},
+    {"icon_class": "fab fa-python tech-icon", "tech_name": "Python"},
+    {"icon_class": "fas fa-database tech-icon", "tech_name": "SQL"},
+    {"icon_class": "fab fa-linux tech-icon", "tech_name": "Linux"},
+    {"icon_class": "svg-icon i-spark tech-icon", "tech_name": "Apache Spark"},
+    {"icon_class": "fab fa-aws tech-icon", "tech_name": "AWS"},
+    {"icon_class": "svg-icon i-airflow tech-icon", "tech_name": "Apache Airflow"},
+    {"icon_class": "svg-icon i-kafka tech-icon", "tech_name": "Apache Kafka"},
+];
+const techDataBottom = [
+    {"icon_class": "fab fa-docker tech-icon", "tech_name": "Docker"},
+    {"icon_class": "fab fa-google tech-icon", "tech_name": "GCP"},
+    {"icon_class": "svg-icon i-iceberg tech-icon", "tech_name": "Apache Iceberg"},
+    {"icon_class": "svg-icon i-clickhouse tech-icon", "tech_name": "Clickhouse"},
+    {"icon_class": "svg-icon i-dbt tech-icon", "tech_name": "dbt"},
+    {"icon_class": "fas fa-code-branch tech-icon", "tech_name": "Git"},
+    {"icon_class": "svg-icon i-databricks tech-icon", "tech_name": "Databricks"},
+    {"icon_class": "fab fa-docker tech-icon", "tech_name": "Docker"},
+    {"icon_class": "fab fa-google tech-icon", "tech_name": "GCP"},
+    {"icon_class": "svg-icon i-iceberg tech-icon", "tech_name": "Apache Iceberg"},
+    {"icon_class": "svg-icon i-clickhouse tech-icon", "tech_name": "Clickhouse"},
+    {"icon_class": "svg-icon i-dbt tech-icon", "tech_name": "dbt"},
+    {"icon_class": "fas fa-code-branch tech-icon", "tech_name": "Git"},
+    {"icon_class": "svg-icon i-databricks tech-icon", "tech_name": "Databricks"},
 ];
 
 // Function to create a single tech item
@@ -150,7 +166,7 @@ function populateTechItems() {
     // populate top tech items
     const topContainer = document.getElementsByClassName('tech-scroll-top');
     topContainer.innerHTML = '';
-    techData.forEach(tech => {
+    techDataTop.forEach(tech => {
         const item = createTechItem(tech.icon_class, tech.tech_name);
         topContainer[0].appendChild(item);
     });
@@ -158,8 +174,7 @@ function populateTechItems() {
     // populate bottom tech items
     const bottomContainer = document.getElementsByClassName('tech-scroll-bottom');
     bottomContainer.innerHTML = '';
-    const reverseTechData = techData.reverse();
-    reverseTechData.forEach(tech => {
+    techDataBottom.forEach(tech => {
         const item = createTechItem(tech.icon_class, tech.tech_name);
         bottomContainer[0].appendChild(item);
     });
@@ -261,17 +276,13 @@ gsap.set(hoverImg, { opacity: 0 });
 
 container.addEventListener('mouseenter', () => {
   gsap.to(defaultImg, { opacity: 0, duration: 0.5, ease: "power2.inOut" });
-//   gsap.fromTo(hoverImg, 
-//     { opacity: 0, y: 20 },
-//     { opacity: 1, y: 0, duration: 0.7, ease: "back.out(1.7)" }
-//   );
     gsap.fromTo(hoverImg, 
         { opacity: 0, rotationY: 90 },
         { 
-        opacity: 1, 
-        rotationY: 0, 
-        duration: 0.6, 
-        ease: "back.out(1.7)" 
+            opacity: 1, 
+            rotationY: 0, 
+            duration: 0.6, 
+            ease: "back.out(1.7)" 
         }
     );
 });
