@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Timeline</title>
+    <style>
+        /* CSS Variables (Default: Light Theme) */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --dark: #1e293b; /* Text color in light mode */
+            --light: #f8fafc; /* Background in light mode */
+            --gray: #94a3b8;
+            --light-gray: #e2e8f0; /* Borders, subtle backgrounds */
+            --dark-gray: #374151; /* Secondary text */
+            --background-color: var(--light);
+            --text-color: var(--dark);
+            --card-bg: #ffffff;
+            --border-color: var(--light-gray);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --timeline-inactive: var(--light-gray);
+            --timeline-active: var(--primary);
+
+            --animation-duration: 0.5s;
+            --animation-timing: ease-in-out;
+        }
+
+        /* Dark Theme */
+        body[data-theme="dark"] {
+            --primary: #3b82f6; /* Slightly lighter blue for dark bg */
+            --primary-dark: #2563eb;
+            --secondary: #10b981;
+            --dark: #111827; /* Background in dark mode */
+            --light: #f9fafb; /* Text color in dark mode */
+            --gray: #6b7280;
+            --light-gray: #374151; /* Borders, subtle backgrounds */
+            --dark-gray: #9ca3af; /* Secondary text */
+            --background-color: var(--dark);
+            --text-color: var(--light);
+            --card-bg: #1f2937;
+            --border-color: var(--light-gray);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --timeline-inactive: var(--light-gray);
+            --timeline-active: var(--primary);
+        }
+
+        /* General Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+           scroll-behavior: smooth; /* Nice but JS overrides needed for instant snap */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color var(--animation-duration) ease, color var(--animation-duration) ease;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Layout */
+        .timeline-container {
+            position: sticky;
+            top: 0;
+            left: 0;
+            height: 100vh; /* Full viewport height */
+            width: 150px; /* Fixed width for timeline */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            flex-shrink: 0; /* Prevent shrinking */
+            z-index: 10;
+            background-color: var(--background-color); /* Match body background */
+             transition: background-color var(--animation-duration) ease;
+        }
+
+        .timeline {
+            position: relative;
+            list-style: none;
+            padding-left: 20px; /* Space for the line and dots */
+            height: 80%; /* Control the length relative to container */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribute items evenly */
+        }
+
+        /* The vertical line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px; /* Start below first dot center */
+            bottom: 10px; /* End above last dot center */
+            width: 4px;
+            background-color: var(--border-color);
+            border-radius: 2px;
+             transition: background-color var(--animation-duration) ease;
+        }
+
+        .timeline-item {
+            position: relative;
+            cursor: pointer; /* Indicate interactivity */
+        }
+
+        /* Dots on the timeline */
+        .timeline-dot {
+            position: absolute;
+            left: -2px; /* Center on the line */
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background-color: var(--timeline-inactive);
+            border: 2px solid var(--background-color); /* Creates hollow effect */
+            border-radius: 50%;
+            transition: background-color var(--animation-duration) ease, transform 0.3s ease, border-color var(--animation-duration) ease;
+            z-index: 1;
+        }
+
+        .timeline-item.active .timeline-dot {
+            background-color: var(--timeline-active);
+            transform: translate(-50%, -50%) scale(1.5); /* Make active dot larger */
+        }
+
+        .timeline-date {
+            padding-left: 25px; /* Space from dot */
+            font-size: 0.9em;
+            font-weight: bold;
+            color: var(--gray);
+            transition: color var(--animation-duration) ease;
+        }
+
+        .timeline-item.active .timeline-date {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+
+        /* Main Content Area */
+        .content-container {
+            flex-grow: 1; /* Takes remaining space */
+            padding: 5vh 5vw; /* Padding around content */
+             /* Needs height for IntersectionObserver to work correctly relative to viewport */
+             /* Each card section needs enough height */
+        }
+
+        .timeline-card-section {
+           min-height: 90vh; /* Give each section ample space, crucial for observer */
+           display: flex;
+           align-items: center; /* Vertically center card in its section */
+           justify-content: center; /* Horizontally center card */
+           padding: 20px 0; /* Padding top/bottom within section */
+        }
+
+        .timeline-card {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px 30px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            opacity: 0; /* Start hidden */
+            transform: translateY(30px) scale(0.95); /* Start slightly down and smaller */
+            transition: opacity var(--animation-duration) var(--animation-timing),
+                        transform var(--animation-duration) var(--animation-timing),
+                        background-color var(--animation-duration) ease,
+                        border-color var(--animation-duration) ease,
+                        box-shadow var(--animation-duration) ease;
+            will-change: opacity, transform; /* Hint for performance */
+        }
+
+         .timeline-card-section.is-visible .timeline-card {
+             opacity: 1;
+             transform: translateY(0) scale(1); /* Animate into view */
+         }
+
+        /* Card Content Styling */
+        .timeline-card-media {
+            width: 100%;
+            height: 250px; /* Fixed height for media */
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden; /* Ensure media fits bounds */
+            background-color: var(--light-gray); /* Placeholder bg */
+             transition: background-color var(--animation-duration) ease;
+        }
+
+        .timeline-card-media img,
+        .timeline-card-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the area nicely */
+            display: block;
+        }
+
+        .timeline-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.5em;
+             transition: color var(--animation-duration) ease;
+        }
+
+        .timeline-card p {
+            font-size: 1em;
+            color: var(--dark-gray);
+             transition: color var(--animation-duration) ease;
+        }
+
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 100;
+            font-size: 0.9em;
+            transition: all var(--animation-duration) ease;
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+        .theme-toggle:hover {
+             background-color: var(--light-gray);
+        }
+        body[data-theme="dark"] .theme-toggle:hover {
+             background-color: var(--dark-gray);
+        }
+
+        /* Simple Loading State (Optional) */
+        body.loading::before {
+            content: 'Loading...';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5em;
+            color: var(--primary);
+            z-index: 200;
+        }
+
+
+    </style>
+</head>
+<body data-theme="light"> <aside class="timeline-container">
+        <ul class="timeline" id="timeline-nav">
+            </ul>
+    </aside>
+
+    <main class="content-container" id="content-area">
+        </main>
+
+    <button class="theme-toggle" id="theme-toggle-btn">Toggle Theme</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add loading state maybe?
+             // document.body.classList.add('loading');
+
+            const timelineNav = document.getElementById('timeline-nav');
+            const contentArea = document.getElementById('content-area');
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+            // --- Sample Data ---
+            const timelineData = [
+                {
+                    id: 'event-1',
+                    date: '2016-08',
+                    title: 'Graduated University',
+                    description: 'Received a Bachelor\'s degree in Accounting and Auditing. Developed strong analytical and financial skills.',
+                    mediaType: 'image', // 'image' or 'video'
+                    mediaUrl: 'https://via.placeholder.com/600x250/2563eb/ffffff?text=Graduation+Cap' // Placeholder image
+                },
+                {
+                    id: 'event-2',
+                    date: '2017-06',
+                    title: 'First Tech Role: Jr. Developer',
+                    description: 'Started career transition into tech as a Junior Full-Stack Developer. Focused on JavaScript, HTML, and CSS.',
+                    mediaType: 'image',
+                    mediaUrl: 'https://via.placeholder.com/600x250/10b981/ffffff?text=Code+Editor'
+                },
+                {
+                    id: 'event-3',
+                    date: '2019-01',
+                    title: 'Full-Stack Developer',
+                    description: 'Gained experience with React, React Native, Node.js, and Express.js, building and maintaining web and mobile applications.',
+                    mediaType: 'image',
+                    mediaUrl: 'https://via.placeholder.com/600x250/94a3b8/ffffff?text=React+Node+Logos'
+                },
+                 {
+                    id: 'event-4',
+                    date: '2020-11',
+                    title: 'Transition to Data Engineering',
+                    description: 'Pivoted to Data Engineering, leveraging backend and analytical skills. Started learning Python, SQL, and cloud platforms.',
+                     mediaType: 'image',
+                    mediaUrl: 'https://via.placeholder.com/600x250/374151/ffffff?text=Data+Pipelines'
+                },
+                {
+                    id: 'event-5',
+                    date: '2022-Present',
+                    title: 'Senior Data Engineer',
+                    description: 'Designing, building, and optimizing data pipelines, data warehouses, and ETL processes. Working with large datasets and cloud technologies (AWS/GCP/Azure).',
+                    mediaType: 'video', // Example using a video
+                    // Replace with an actual video URL or keep placeholder
+                    mediaUrl: 'https://www.w3schools.com/html/mov_bbb.mp4' // Sample video
+                    // mediaUrl: 'https://via.placeholder.com/600x250/1d4ed8/ffffff?text=Cloud+Data' // Placeholder if video fails
+                }
+            ];
+
+            // --- Populate Timeline and Content ---
+            timelineData.forEach((item, index) => {
+                // Create Timeline Item (Dot and Date)
+                const listItem = document.createElement('li');
+                listItem.classList.add('timeline-item');
+                listItem.dataset.targetId = item.id; // Link to card section
+
+                const dot = document.createElement('div');
+                dot.classList.add('timeline-dot');
+
+                const dateSpan = document.createElement('span');
+                dateSpan.classList.add('timeline-date');
+                dateSpan.textContent = item.date;
+
+                listItem.appendChild(dot);
+                listItem.appendChild(dateSpan);
+                timelineNav.appendChild(listItem);
+
+                // Create Content Card Section
+                const cardSection = document.createElement('div');
+                cardSection.classList.add('timeline-card-section');
+                cardSection.id = item.id; // ID to be targeted by observer and links
+
+                const card = document.createElement('article');
+                card.classList.add('timeline-card');
+
+                // Media Element (Image or Video)
+                const mediaContainer = document.createElement('div');
+                mediaContainer.classList.add('timeline-card-media');
+                if (item.mediaType === 'video' && item.mediaUrl) {
+                    const video = document.createElement('video');
+                    video.src = item.mediaUrl;
+                    video.controls = true; // Add basic controls
+                    video.muted = true; // Mute for potential autoplay later
+                    // video.autoplay = true; // Consider UX implications
+                    video.loop = true;
+                    video.playsInline = true; // Important for mobile
+                    mediaContainer.appendChild(video);
+                } else { // Default to image
+                    const img = document.createElement('img');
+                    img.src = item.mediaUrl || `https://via.placeholder.com/600x250/cccccc/ffffff?text=Event+${index+1}`; // Fallback placeholder
+                    img.alt = item.title;
+                    mediaContainer.appendChild(img);
+                }
+
+                const title = document.createElement('h3');
+                title.textContent = item.title;
+
+                const description = document.createElement('p');
+                description.textContent = item.description;
+
+                card.appendChild(mediaContainer);
+                card.appendChild(title);
+                card.appendChild(description);
+                cardSection.appendChild(card);
+                contentArea.appendChild(cardSection);
+
+                 // Add click listener to timeline item to scroll to the card section
+                listItem.addEventListener('click', () => {
+                    cardSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+
+            });
+
+            // --- Intersection Observer for Active State ---
+            const cardSections = document.querySelectorAll('.timeline-card-section');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+
+            const observerOptions = {
+                root: null, // Use the viewport
+                rootMargin: '0px',
+                threshold: 0.6 // Trigger when 60% of the section is visible
+            };
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                     const targetId = entry.target.id;
+                     const correspondingNavItem = timelineNav.querySelector(`[data-target-id="${targetId}"]`);
+
+                    if (entry.isIntersecting) {
+                        // Add 'is-visible' to the section for card animation
+                        entry.target.classList.add('is-visible');
+
+                        // Remove active class from all timeline items
+                        timelineItems.forEach(item => item.classList.remove('active'));
+                        // Add active class to the corresponding nav item
+                        if (correspondingNavItem) {
+                            correspondingNavItem.classList.add('active');
+                         }
+
+                        // Optional: Pause videos in non-visible cards
+                         pauseOtherVideos(targetId);
+
+                    } else {
+                        // Remove 'is-visible' when not intersecting enough
+                         entry.target.classList.remove('is-visible');
+
+                         // Optional: If you want the highlight to *only* show when truly centered,
+                         // you might remove the 'active' class here too, but the current logic
+                         // keeps the last intersected item highlighted, which feels better for scrolling.
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+            cardSections.forEach(section => {
+                observer.observe(section);
+            });
+
+             // Function to pause videos not in the active card section
+             function pauseOtherVideos(activeSectionId) {
+                 cardSections.forEach(section => {
+                     const video = section.querySelector('video');
+                     if (video) {
+                         if (section.id !== activeSectionId || !section.classList.contains('is-visible')) {
+                             video.pause();
+                         } else {
+                             // Optional: Autoplay when becomes visible, consider user preferences
+                             // video.play().catch(e => console.log("Autoplay prevented"));
+                         }
+                     }
+                 });
+             }
+
+            // --- Theme Toggling ---
+            const currentTheme = localStorage.getItem('timeline-theme') || 'light';
+            document.body.setAttribute('data-theme', currentTheme);
+            updateToggleButtonText(currentTheme);
+
+
+            themeToggleBtn.addEventListener('click', () => {
+                let newTheme = document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('timeline-theme', newTheme); // Save preference
+                 updateToggleButtonText(newTheme);
+            });
+
+            function updateToggleButtonText(theme){
+                 themeToggleBtn.textContent = theme === 'light' ? 'Switch to Dark' : 'Switch to Light';
+            }
+
+            // Set initial active state based on the first item (or potentially hash)
+            if (timelineItems.length > 0) {
+                 timelineItems[0].classList.add('active');
+                //  Manually trigger visibility for the first card if it's above the fold
+                //  or rely on initial observer trigger
+                const firstSection = document.getElementById(timelineData[0].id);
+                if(firstSection){
+                    // A small delay can help ensure layout is calculated
+                    setTimeout(() => {
+                         const rect = firstSection.getBoundingClientRect();
+                         if(rect.top >= 0 && rect.top <= window.innerHeight * 0.6) { // Check if initially visible enough
+                            firstSection.classList.add('is-visible');
+                             pauseOtherVideos(firstSection.id); // Pause others if first is video
+                         }
+                    }, 100);
+
+                }
+            }
+
+            // Remove loading state
+            // document.body.classList.remove('loading');
+
+        }); // End DOMContentLoaded
+    </script>
+
+</body>
+</html>
