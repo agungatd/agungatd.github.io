@@ -283,46 +283,62 @@
             // --- Sample Data ---
             const timelineData = [
                 {
-                    id: 'event-1',
+                    id: 'event-01',
                     date: '2016-08',
-                    title: 'Graduated University',
+                    title: 'Graduated from President University',
                     description: 'Received a Bachelor\'s degree in Accounting and Auditing. Developed strong analytical and financial skills.',
                     mediaType: 'image', // 'image' or 'video'
-                    mediaUrl: 'https://via.placeholder.com/600x250/2563eb/ffffff?text=Graduation+Cap' // Placeholder image
+                    mediaUrl: 'https://placehold.co/600x400?text=Graduation+Cap' // Placeholder image
                 },
                 {
-                    id: 'event-2',
-                    date: '2017-06',
-                    title: 'First Tech Role: Jr. Developer',
-                    description: 'Started career transition into tech as a Junior Full-Stack Developer. Focused on JavaScript, HTML, and CSS.',
+                    id: 'event-011',
+                    date: '2016-09',
+                    title: 'First Job: Junior Auditor at EY Indonesia',
+                    description: 'Started career in finance as an Accounting Assistant. Gained experience in financial reporting and data analysis.',
                     mediaType: 'image',
-                    mediaUrl: 'https://via.placeholder.com/600x250/10b981/ffffff?text=Code+Editor'
+                    mediaUrl: 'https://placehold.co/600x400?text=Accounting+Office'
                 },
                 {
-                    id: 'event-3',
+                    id: 'event-012',
+                    date: '2018-07',
+                    title: 'Transition to Tech: Web Development Coding Bootcamp',
+                    description: 'Began learning programming and web development at Hacktiv8. Focused on React and Node.js.',
+                    mediaType: 'image',
+                    mediaUrl: 'https://placehold.co/600x400?text=Python+Learning'
+                },
+                {
+                    id: 'event-02',
                     date: '2019-01',
-                    title: 'Full-Stack Developer',
-                    description: 'Gained experience with React, React Native, Node.js, and Express.js, building and maintaining web and mobile applications.',
+                    title: 'First Tech Role: Software Engineer',
+                    description: 'Started career transition into tech as a Junior Full-Stack Developer. Focused on React Native and Node.js.',
                     mediaType: 'image',
-                    mediaUrl: 'https://via.placeholder.com/600x250/94a3b8/ffffff?text=React+Node+Logos'
+                    mediaUrl: 'https://placehold.co/600x400?text=Code+Editor'
+                },
+                {
+                    id: 'event-03',
+                    date: '2020-01',
+                    title: 'Data Mangement Specialist at Axiata Digital Indonesia',
+                    description: 'Worked as a Data Management Specialist, focusing on data engineering and analytics. Developed skills in data pipelines and ETL processes.',
+                    mediaType: 'image',
+                    mediaUrl: 'https://placehold.co/600x400?text=React+Node+Logos'
                 },
                  {
-                    id: 'event-4',
-                    date: '2020-11',
-                    title: 'Transition to Data Engineering',
+                    id: 'event-04',
+                    date: '2021-01',
+                    title: 'Transition to Focus on Data Engineering',
                     description: 'Pivoted to Data Engineering, leveraging backend and analytical skills. Started learning Python, SQL, and cloud platforms.',
                      mediaType: 'image',
-                    mediaUrl: 'https://via.placeholder.com/600x250/374151/ffffff?text=Data+Pipelines'
+                    mediaUrl: 'https://placehold.co/600x400?text=Data+Pipelines'
                 },
                 {
-                    id: 'event-5',
-                    date: '2022-Present',
+                    id: 'event-05',
+                    date: '2024-Present',
                     title: 'Senior Data Engineer',
                     description: 'Designing, building, and optimizing data pipelines, data warehouses, and ETL processes. Working with large datasets and cloud technologies (AWS/GCP/Azure).',
                     mediaType: 'video', // Example using a video
                     // Replace with an actual video URL or keep placeholder
                     mediaUrl: 'https://www.w3schools.com/html/mov_bbb.mp4' // Sample video
-                    // mediaUrl: 'https://via.placeholder.com/600x250/1d4ed8/ffffff?text=Cloud+Data' // Placeholder if video fails
+                    // mediaUrl: 'https://placehold.co/600x400?text=Cloud+Data' // Placeholder if video fails
                 }
             ];
 
@@ -366,7 +382,7 @@
                     mediaContainer.appendChild(video);
                 } else { // Default to image
                     const img = document.createElement('img');
-                    img.src = item.mediaUrl || `https://via.placeholder.com/600x250/cccccc/ffffff?text=Event+${index+1}`; // Fallback placeholder
+                    img.src = item.mediaUrl || `https://placehold.co/600x400?text=Event+${index+1}`; // Fallback placeholder
                     img.alt = item.title;
                     mediaContainer.appendChild(img);
                 }
