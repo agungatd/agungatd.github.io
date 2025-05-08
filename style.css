@@ -14,6 +14,9 @@
     --invert-bg-color: var(--dark);
     --invert-text-color: var(--light);
     --card-bg: white;
+
+    --animation-duration: 0.5s;
+    --animation-timing: ease-in-out;
 }
 
 [data-theme="dark"] {
@@ -24,7 +27,7 @@
     --card-bg: #334155;
 }
 
-* {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
